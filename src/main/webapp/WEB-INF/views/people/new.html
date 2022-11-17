@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Person</title>
+</head>
+<body>
+<!--th:action - на какой адрес эта форма будет обращаться-->
+<!--Все адреса пишуся @{}-->
+<!--th:object="person" - это объект, который мы положили в модель в контроллере с аттрибутом "person".
+К этому объекту мы обращаемся, для него и создаётся форма
+*{name} синтаксис обращения к полю
+id в input нужен только для создания label
+<label for="name">Name</label> for name из input-->
+<form th:method="POST" th:action="@{/people}" th:object="${person}">
+  <label for="name">Enter name:</label>
+  <input type="text" th:field="*{name}" id="name"/>
+  <br/>
+  <input type="submit" value="Create!"/>
+</form>
+</body>
+</html>
