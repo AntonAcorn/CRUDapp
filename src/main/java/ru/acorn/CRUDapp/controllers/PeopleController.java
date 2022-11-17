@@ -38,9 +38,31 @@ public class PeopleController {
     }
 
     @PostMapping()      //в @ModelAttribute будет лежать Person с данными из формы
-    public String create (@ModelAttribute("person")Person person) {
+    public String create(@ModelAttribute("person") Person person) {
         personDao.save(person);
         return "redirect:/people";  //ключевое слово redirect перенаправляет на /people
-        }
+    }
+
+    @GetMapping("/{id}/edit") //находим по id человека, и затем нам нужно его поместить в модель
+    public String edit(Model model, @PathVariable("id") int id) {
+        model.addAttribute("person", personDao.show(id));  //В модель мы кладем person, потому что view работаем через модель, а не dao
+        return "people/edit";
+    }
+
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("person") Person person,
+                         @PathVariable("id") int id) {
+        personDao.update(id, person);  //id и человек, который пришел из формы
+        return "redirect:/people";
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id")int id) {
+        personDao.delete(id);
+        return "redirect:/people";
+    }
+
+
 }
+
 
