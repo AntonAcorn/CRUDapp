@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Все люди</title>
+</head>
+<body>
+<!--форич в тимлифе просто проходится по листу, но ничего не выводит-->
+<div th:each="person : ${people}">
+   <a th:href="@{/people/{id}(id=${person.getId()})}" th:text="${person.getName()}">USER</a>
+</div>
+
+</body>
+</html>

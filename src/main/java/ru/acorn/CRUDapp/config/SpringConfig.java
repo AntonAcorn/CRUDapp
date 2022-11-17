@@ -1,4 +1,4 @@
-package ru.acorn.springcore.config;
+package ru.acorn.CRUDapp.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -13,7 +13,7 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 @Configuration
-@ComponentScan("ru.acorn.springcore")
+@ComponentScan("ru.acorn.CRUDapp")
 @EnableWebMvc
 public class SpringConfig implements WebMvcConfigurer {
 
