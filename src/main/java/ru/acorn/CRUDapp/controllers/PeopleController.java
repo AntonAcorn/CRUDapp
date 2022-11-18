@@ -9,7 +9,6 @@ import ru.acorn.CRUDapp.dao.PersonDAO;
 import ru.acorn.CRUDapp.models.Person;
 
 import javax.validation.Valid;
-
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
