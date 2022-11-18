@@ -7,7 +7,8 @@
 <body>
 <!--форич в тимлифе просто проходится по листу, но ничего не выводит-->
 <div th:each="person : ${people}">
-   <a th:href="@{/people/{id}(id=${person.getId()})}" th:text="${person.getName()}">USER</a>
+   <a th:href="@{/people/{id}(id=${person.getId()})}"
+      th:text="${person.getName() + ', ' + person.getAge()}">USER</a>
 </div>
 
 <br/>

@@ -3,66 +3,70 @@ package ru.acorn.CRUDapp.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.acorn.CRUDapp.dao.PersonDao;
+import ru.acorn.CRUDapp.dao.PersonDAO;
 import ru.acorn.CRUDapp.models.Person;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
 
-    private final PersonDao personDao;
+    private final PersonDAO personDAO;
 
     @Autowired
-    public PeopleController(PersonDao personDao) {
-        this.personDao = personDao;
+    public PeopleController(PersonDAO personDAO) {
+        this.personDAO = personDAO;
     }
 
-    @GetMapping
-    public String index(Model model) { //получаем всех людей в dao и передаем в представление
-        model.addAttribute("people", personDao.index());
-        return "people/index"; //папка и файл из webapp
+    @GetMapping()
+    public String index(Model model) {
+        model.addAttribute("people", personDAO.index());
+        return "people/index";
     }
 
-    @GetMapping("/{id}") //@PathVariable извлекает id из Url, т.е. в int id будель лежать число из url запроса
+    @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-        //получаем одного человека из dao и передаем его на отображение во вью
-        model.addAttribute("person", personDao.show(id));
+        model.addAttribute("person", personDAO.show(id));
         return "people/show";
     }
 
-    @GetMapping("/new") //запрос на форму создания человека
-    public String newPerson(Model model) {  //в данном случае в модель будет передоваться все то, что мы занесли в форму
-        model.addAttribute("person", new Person()); //т.е. создаем пустую заглушку
-        return "people/new";     //можно все заменить на @ModelAttribute, спринг сам создаст пустой объект и положит его в модель
+    @GetMapping("/new")
+    public String newPerson(@ModelAttribute("person") Person person) {
+        return "people/new";
     }
 
-    @PostMapping()      //в @ModelAttribute будет лежать Person с данными из формы
-    public String create(@ModelAttribute("person") Person person) {
-        personDao.save(person);
-        return "redirect:/people";  //ключевое слово redirect перенаправляет на /people
+    @PostMapping()
+    public String create(@ModelAttribute("person") @Valid Person person,
+                         BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "people/new";
+
+        personDAO.save(person);
+        return "redirect:/people";
     }
 
-    @GetMapping("/{id}/edit") //находим по id человека, и затем нам нужно его поместить в модель
+    @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("person", personDao.show(id));  //В модель мы кладем person, потому что view работаем через модель, а не dao
+        model.addAttribute("person", personDAO.show(id));
         return "people/edit";
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("person") Person person,
+    public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult,
                          @PathVariable("id") int id) {
-        personDao.update(id, person);  //id и человек, который пришел из формы
+        if (bindingResult.hasErrors())
+            return "people/edit";
+
+        personDAO.update(id, person);
         return "redirect:/people";
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id")int id) {
-        personDao.delete(id);
+    public String delete(@PathVariable("id") int id) {
+        personDAO.delete(id);
         return "redirect:/people";
     }
-
-
 }
-
-
