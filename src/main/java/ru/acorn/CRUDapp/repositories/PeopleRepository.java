@@ -7,4 +7,6 @@ import ru.acorn.CRUDapp.models.Person;
 // параметризуем сущностью, Integer - это id
 @Repository
 public interface PeopleRepository extends JpaRepository<Person, Integer> {
+
 }
+

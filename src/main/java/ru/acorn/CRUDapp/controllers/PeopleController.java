@@ -13,13 +13,13 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
-    public PeopleController(PeopleService peopleService) {
-        this.peopleService = peopleService;
-    }
 
     private final PeopleService peopleService;
 
-
+    @Autowired
+    public PeopleController(PeopleService peopleService) {
+        this.peopleService = peopleService;
+    }
 
     @GetMapping()
     public String index(Model model) {

@@ -9,6 +9,7 @@ import ru.acorn.CRUDapp.repositories.PeopleRepository;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
 @Transactional(readOnly = true)
 public class PeopleService {
@@ -19,7 +20,6 @@ public class PeopleService {
     public PeopleService(PeopleRepository peopleRepository) {
         this.peopleRepository = peopleRepository;
     }
-
 
     public List<Person> findAll() {
         return peopleRepository.findAll();

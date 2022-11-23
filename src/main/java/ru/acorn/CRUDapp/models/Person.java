@@ -2,6 +2,7 @@ package ru.acorn.CRUDapp.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+
 @Entity
 @Table(name = "Person")
 public class Person {
