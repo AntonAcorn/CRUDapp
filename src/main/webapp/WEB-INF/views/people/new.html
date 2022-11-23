@@ -1,38 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>New Person</title>
+  <meta charset="UTF-8">
+  <title>New person</title>
 </head>
 <body>
-<!--th:action - на какой адрес эта форма будет обращаться-->
-<!--Все адреса пишуся @{}-->
-<!--th:object="person" - это объект, который мы положили в модель в контроллере с аттрибутом "person".
-К этому объекту мы обращаемся, для него и создаётся форма
-*{name} синтаксис обращения к полю
-id в input нужен только для создания label
-<label for="name">Name</label> for name из input
-th:if тэг если (если есть ошибка в данном случае)
-"${#fields}" - доступ сразу ко всем полям-->
+
 <form th:method="POST" th:action="@{/people}" th:object="${person}">
-  <label for="name">Enter name:</label>
+  <label for="name">Enter name: </label>
   <input type="text" th:field="*{name}" id="name"/>
-  <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
+  <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
   <br/>
-    <label for="age">Enter age:</label>
-    <input type="text" th:field="*{age}" id="age">
-    <div style="color: red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age error</div>
-  </br>
-    <label for="email">Enter email:</label>
-    <input type="text" th:field="*{email}" id="email">
-  <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
-    </br>
-  <label for="address">Enter address:</label>
-  <input type="text" th:field="*{address}" id="address">
-  <div style="color: red" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address error</div>
-  </br>
+  <label for="age">Enter age: </label>
+  <input type="text" th:field="*{age}" id="age"/>
+  <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age Error</div>
+  <br/>
+  <label for="email">Enter email: </label>
+  <input type="text" th:field="*{email}" id="email"/>
+  <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div>
+  <br/>
   <input type="submit" value="Create!"/>
 </form>
+
 </body>
 </html>
-
