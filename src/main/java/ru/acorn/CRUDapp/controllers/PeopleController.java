@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.acorn.CRUDapp.dao.PersonDao;
 import ru.acorn.CRUDapp.models.Person;
 import ru.acorn.CRUDapp.services.ItemsService;
 import ru.acorn.CRUDapp.services.PeopleService;
@@ -14,19 +15,21 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
-
+    private final PersonDao personDao;
     private final PeopleService peopleService;
     private final ItemsService itemService;
 
     @Autowired
-    public PeopleController(PeopleService peopleService, ItemsService itemService) {
+    public PeopleController(PersonDao personDao, PeopleService peopleService, ItemsService itemService) {
+        this.personDao = personDao;
         this.peopleService = peopleService;
         this.itemService = itemService;
     }
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("people", peopleService.findAll());
+        //model.addAttribute("people", peopleService.findAll());
+        personDao.testNPlus1();
 
         itemService.findByItemName("Airpods");
         itemService.findByOwner(peopleService.findAll().get(0));
