@@ -7,7 +7,7 @@ import ru.acorn.CRUDapp.models.Person;
 
 import java.util.List;
 
-@Repository//здесь мы создаем кастомные методы и их обязательно нужно будет реализоать в сервисе
+@Repository//здесь мы создаем кастомные методы и их обязательно нужно будет реализовать в сервисе
 public interface ItemsRepository extends JpaRepository<Item, Integer> {
     List<Item> findByItemName(String name);
 

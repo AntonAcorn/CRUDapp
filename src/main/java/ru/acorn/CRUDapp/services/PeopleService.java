@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.acorn.CRUDapp.models.Person;
 import ru.acorn.CRUDapp.repositories.PeopleRepository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +33,7 @@ public class PeopleService {
 
     @Transactional
     public void save(Person person) {
+        person.setCreatedAt(new Date());
         peopleRepository.save(person);
     }
 
@@ -49,4 +51,5 @@ public class PeopleService {
     public void test(){
         System.out.println("Testing here with debug. Inside hibernate transaction");
     }
+
 }

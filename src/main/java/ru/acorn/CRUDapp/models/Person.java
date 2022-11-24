@@ -1,7 +1,10 @@
 package ru.acorn.CRUDapp.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -27,6 +30,18 @@ public class Person {
     private String email;
     @OneToMany(mappedBy = "owner")
     private List<Item> items;
+
+    @Column(name = "date_of_birth")
+    @Temporal(TemporalType.DATE) //тип нужен для конвертации из объекта Date в дату
+    @DateTimeFormat(pattern = "dd/MM/yyyy")     //для того, чтобы автоматически парсить дату из формы,
+    // мы передаем спригу форма //дд/мм/гггг, и он по ней возвращает дату.
+    //mm - minutes. MM - month
+    private Date dateOfBirth;
+
+    @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+
 
     public Person() {
 
@@ -75,6 +90,22 @@ public class Person {
 
     public void setItems(List<Item> items) {
         this.items = items;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     @Override
