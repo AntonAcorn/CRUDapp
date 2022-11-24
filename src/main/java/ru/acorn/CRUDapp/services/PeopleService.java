@@ -3,6 +3,7 @@ package ru.acorn.CRUDapp.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.acorn.CRUDapp.models.Mood;
 import ru.acorn.CRUDapp.models.Person;
 import ru.acorn.CRUDapp.repositories.PeopleRepository;
 
@@ -34,6 +35,7 @@ public class PeopleService {
     @Transactional
     public void save(Person person) {
         person.setCreatedAt(new Date());
+        person.setMood(Mood.CALM);//
         peopleRepository.save(person);
     }
 
